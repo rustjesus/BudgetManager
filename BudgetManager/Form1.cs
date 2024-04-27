@@ -21,6 +21,12 @@ namespace BudgetManager
         private float rentCost, groceryCost, utilityCost, carCost, hbaCost, nessCost, extraCost, insCost;
         private float weeklyIncome, taxPercent, hourlyIncome, hoursPerWeek, finalAnnIncome;
         private DarkMode darkMode;
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -204,12 +210,6 @@ namespace BudgetManager
         {
             float.TryParse(tbHourlyIncome.Text, out hourlyIncome);
             UpdateWeeklyIncomeHours();
-        }
-
-
-        public Form1()
-        {
-            InitializeComponent();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
