@@ -54,6 +54,10 @@ namespace BudgetManager
                 // Return the DarkMode value as an integer
                 return (int)settings.DarkMode;
             }
+            else
+            {
+                SaveDarkModeSetting();
+            }
 
             // If the file doesn't exist or an error occurs, default to 0 (false)
             return 0;
