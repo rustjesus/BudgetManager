@@ -45,10 +45,6 @@ namespace BudgetManager
             UpdateMonthlyRemainder();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            UseHourlyInput();
-        }
 
         private void tbInsurance_TextChanged(object sender, EventArgs e)
         {
