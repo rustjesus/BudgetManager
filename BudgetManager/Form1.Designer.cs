@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblAnnualIncome = new System.Windows.Forms.Label();
-            this.lblMonthlyRemainder = new System.Windows.Forms.Label();
-            this.lblMonthlyBudget = new System.Windows.Forms.Label();
+            this.lbAnnualIncome = new System.Windows.Forms.Label();
+            this.lbMonthlyRemainder = new System.Windows.Forms.Label();
+            this.lbMonthlyBudget = new System.Windows.Forms.Label();
             this.tbHourlyIncome = new System.Windows.Forms.TextBox();
             this.label_PerHourInput = new System.Windows.Forms.Label();
             this.label_HoursPerWeek = new System.Windows.Forms.Label();
@@ -58,38 +58,39 @@
             this.lbTaxRate = new System.Windows.Forms.Label();
             this.tbTaxRate = new System.Windows.Forms.TextBox();
             this.lbVer = new System.Windows.Forms.Label();
+            this.cbDarkMode = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // lblAnnualIncome
+            // lbAnnualIncome
             // 
-            this.lblAnnualIncome.AutoSize = true;
-            this.lblAnnualIncome.Location = new System.Drawing.Point(62, 236);
-            this.lblAnnualIncome.Name = "lblAnnualIncome";
-            this.lblAnnualIncome.Size = new System.Drawing.Size(138, 13);
-            this.lblAnnualIncome.TabIndex = 0;
-            this.lblAnnualIncome.Text = "Annual Income After Taxes:";
+            this.lbAnnualIncome.AutoSize = true;
+            this.lbAnnualIncome.Location = new System.Drawing.Point(62, 236);
+            this.lbAnnualIncome.Name = "lbAnnualIncome";
+            this.lbAnnualIncome.Size = new System.Drawing.Size(138, 13);
+            this.lbAnnualIncome.TabIndex = 0;
+            this.lbAnnualIncome.Text = "Annual Income After Taxes:";
             // 
-            // lblMonthlyRemainder
+            // lbMonthlyRemainder
             // 
-            this.lblMonthlyRemainder.AutoSize = true;
-            this.lblMonthlyRemainder.Location = new System.Drawing.Point(62, 281);
-            this.lblMonthlyRemainder.Name = "lblMonthlyRemainder";
-            this.lblMonthlyRemainder.Size = new System.Drawing.Size(101, 13);
-            this.lblMonthlyRemainder.TabIndex = 1;
-            this.lblMonthlyRemainder.Text = "Monthly Remainder:";
+            this.lbMonthlyRemainder.AutoSize = true;
+            this.lbMonthlyRemainder.Location = new System.Drawing.Point(62, 281);
+            this.lbMonthlyRemainder.Name = "lbMonthlyRemainder";
+            this.lbMonthlyRemainder.Size = new System.Drawing.Size(101, 13);
+            this.lbMonthlyRemainder.TabIndex = 1;
+            this.lbMonthlyRemainder.Text = "Monthly Remainder:";
             // 
-            // lblMonthlyBudget
+            // lbMonthlyBudget
             // 
-            this.lblMonthlyBudget.AutoSize = true;
-            this.lblMonthlyBudget.Location = new System.Drawing.Point(62, 259);
-            this.lblMonthlyBudget.Name = "lblMonthlyBudget";
-            this.lblMonthlyBudget.Size = new System.Drawing.Size(84, 13);
-            this.lblMonthlyBudget.TabIndex = 2;
-            this.lblMonthlyBudget.Text = "Monthly Budget:";
+            this.lbMonthlyBudget.AutoSize = true;
+            this.lbMonthlyBudget.Location = new System.Drawing.Point(62, 259);
+            this.lbMonthlyBudget.Name = "lbMonthlyBudget";
+            this.lbMonthlyBudget.Size = new System.Drawing.Size(84, 13);
+            this.lbMonthlyBudget.TabIndex = 2;
+            this.lbMonthlyBudget.Text = "Monthly Budget:";
             // 
             // tbHourlyIncome
             // 
-            this.tbHourlyIncome.Location = new System.Drawing.Point(100, 6);
+            this.tbHourlyIncome.Location = new System.Drawing.Point(108, 6);
             this.tbHourlyIncome.Name = "tbHourlyIncome";
             this.tbHourlyIncome.Size = new System.Drawing.Size(100, 20);
             this.tbHourlyIncome.TabIndex = 3;
@@ -115,7 +116,7 @@
             // 
             // tbHoursPerWeek
             // 
-            this.tbHoursPerWeek.Location = new System.Drawing.Point(100, 37);
+            this.tbHoursPerWeek.Location = new System.Drawing.Point(107, 37);
             this.tbHoursPerWeek.Name = "tbHoursPerWeek";
             this.tbHoursPerWeek.Size = new System.Drawing.Size(100, 20);
             this.tbHoursPerWeek.TabIndex = 6;
@@ -124,6 +125,7 @@
             // cbUseWeeklyInput
             // 
             this.cbUseWeeklyInput.AutoSize = true;
+            this.cbUseWeeklyInput.ForeColor = System.Drawing.Color.Black;
             this.cbUseWeeklyInput.Location = new System.Drawing.Point(216, 9);
             this.cbUseWeeklyInput.Name = "cbUseWeeklyInput";
             this.cbUseWeeklyInput.Size = new System.Drawing.Size(111, 17);
@@ -315,17 +317,30 @@
             // 
             this.lbVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lbVer.AutoSize = true;
-            this.lbVer.Location = new System.Drawing.Point(753, 428);
+            this.lbVer.Location = new System.Drawing.Point(473, 428);
             this.lbVer.Name = "lbVer";
             this.lbVer.Size = new System.Drawing.Size(41, 13);
             this.lbVer.TabIndex = 30;
-            this.lbVer.Text = "Ver 0.3";
+            this.lbVer.Text = "Ver 0.5";
+            // 
+            // cbDarkMode
+            // 
+            this.cbDarkMode.AutoSize = true;
+            this.cbDarkMode.ForeColor = System.Drawing.Color.Black;
+            this.cbDarkMode.Location = new System.Drawing.Point(12, 427);
+            this.cbDarkMode.Name = "cbDarkMode";
+            this.cbDarkMode.Size = new System.Drawing.Size(79, 17);
+            this.cbDarkMode.TabIndex = 31;
+            this.cbDarkMode.Text = "Dark Mode";
+            this.cbDarkMode.CheckedChanged += new System.EventHandler(this.cbDarkMode_CheckedChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ClientSize = new System.Drawing.Size(520, 450);
+            this.Controls.Add(this.cbDarkMode);
             this.Controls.Add(this.lbVer);
             this.Controls.Add(this.tbTaxRate);
             this.Controls.Add(this.lbTaxRate);
@@ -353,9 +368,9 @@
             this.Controls.Add(this.label_HoursPerWeek);
             this.Controls.Add(this.label_PerHourInput);
             this.Controls.Add(this.tbHourlyIncome);
-            this.Controls.Add(this.lblMonthlyBudget);
-            this.Controls.Add(this.lblMonthlyRemainder);
-            this.Controls.Add(this.lblAnnualIncome);
+            this.Controls.Add(this.lbMonthlyBudget);
+            this.Controls.Add(this.lbMonthlyRemainder);
+            this.Controls.Add(this.lbAnnualIncome);
             this.Name = "Form1";
             this.Text = "Budget Manager";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -366,9 +381,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblAnnualIncome;
-        private System.Windows.Forms.Label lblMonthlyRemainder;
-        private System.Windows.Forms.Label lblMonthlyBudget;
+        private System.Windows.Forms.Label lbAnnualIncome;
+        private System.Windows.Forms.Label lbMonthlyRemainder;
+        private System.Windows.Forms.Label lbMonthlyBudget;
         private System.Windows.Forms.TextBox tbHourlyIncome;
         private System.Windows.Forms.Label label_PerHourInput;
         private System.Windows.Forms.Label label_HoursPerWeek;
@@ -396,6 +411,7 @@
         private System.Windows.Forms.Label lbTaxRate;
         private System.Windows.Forms.TextBox tbTaxRate;
         private System.Windows.Forms.Label lbVer;
+        private System.Windows.Forms.CheckBox cbDarkMode;
     }
 }
 

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace BudgetManager
 {
@@ -18,7 +20,54 @@ namespace BudgetManager
         private float monthlyBudget, monthlyRemainder;
         private float rentCost, groceryCost, utilityCost, carCost, hbaCost, nessCost, extraCost, insCost;
         private float weeklyIncome, taxPercent, hourlyIncome, hoursPerWeek, finalAnnIncome;
+        private DarkMode darkMode;
+        private void Form1_Load(object sender, EventArgs e)
+        {
 
+            //controls
+            //checkboxes
+            Controls.Add(cbUseWeeklyInput);
+            Controls.Add(cbDarkMode);
+            //expenses
+            Controls.Add(lbExpenses);
+            Controls.Add(lbRent);
+            Controls.Add(lbGrocery);
+            Controls.Add(lbUtilities);
+            Controls.Add(lbCar);
+            Controls.Add(lbHBA);
+            Controls.Add(lbExtra);
+            Controls.Add(lbNecessities);
+            Controls.Add(lbInsurance);
+            //income
+            Controls.Add(lbWeeklyIncome);
+            Controls.Add(lbTaxRate);
+            Controls.Add(label_HoursPerWeek);
+            Controls.Add(label_PerHourInput);
+            Controls.Add(lbAnnualIncome);
+            Controls.Add(lbMonthlyBudget);
+            Controls.Add(lbMonthlyRemainder);
+            Controls.Add(lbVer);
+
+
+            //references
+            darkMode = new DarkMode();
+
+            int dm = darkMode.LoadDarkModeSetting();
+            {
+                if(dm == 0)
+                {
+                    cbDarkMode.Checked = false;
+                    darkMode.EnableRegularMode();
+                }
+                else
+                {
+                    cbDarkMode.Checked = true;
+                    darkMode.EnableDarkMode();
+                }
+            }
+            UseHourlyInput();
+
+        }
         private void tbUtilities_TextChanged(object sender, EventArgs e)
         {
             float.TryParse(tbUtilities.Text, out utilityCost);
@@ -44,6 +93,7 @@ namespace BudgetManager
             float.TryParse(tbRent.Text, out rentCost);
             UpdateMonthlyRemainder();
         }
+
 
 
         private void tbInsurance_TextChanged(object sender, EventArgs e)
@@ -79,6 +129,22 @@ namespace BudgetManager
 
             float.TryParse(tbTaxRate.Text, out taxPercent);
             UpdateAnnualIncome();
+        }
+
+        private void cbDarkMode_CheckedChanged(object sender, EventArgs e)
+        {
+            darkMode.usingDarkMode = !darkMode.usingDarkMode;
+
+            if (darkMode.usingDarkMode)
+            {
+                darkMode.EnableDarkMode();
+                darkMode.SaveDarkModeSetting();
+            }
+            else
+            {
+                darkMode.EnableRegularMode();
+                darkMode.SaveDarkModeSetting();
+            }
         }
 
         private void cbUseWeeklyInput_CheckedChanged(object sender, EventArgs e)
@@ -164,7 +230,7 @@ namespace BudgetManager
             float newTaxPercent = taxPercent / 100;
             float yearlyTaxes = yearly * newTaxPercent;
             finalAnnIncome = yearly - yearlyTaxes;
-            lblAnnualIncome.Text = $"{finalAnnIncome:n2}$ / Year After Taxes";
+            lbAnnualIncome.Text = $"{finalAnnIncome:n2}$ / Year After Taxes";
 
             UpdateMonthlyBudget();
 
@@ -173,7 +239,7 @@ namespace BudgetManager
         private void UpdateMonthlyBudget()
         {
             monthlyBudget = finalAnnIncome / 12;
-            lblMonthlyBudget.Text = $"Monthly Budget: ${monthlyBudget:n2}";
+            lbMonthlyBudget.Text = $"Monthly Budget: ${monthlyBudget:n2}";
 
             UpdateMonthlyRemainder();
         }
@@ -181,7 +247,7 @@ namespace BudgetManager
         private void UpdateMonthlyRemainder()
         {
             monthlyRemainder = monthlyBudget - rentCost - groceryCost - utilityCost - carCost - hbaCost - nessCost - extraCost - insCost;
-            lblMonthlyRemainder.Text = $"Monthly Remainder: ${monthlyRemainder:n2}";
+            lbMonthlyRemainder.Text = $"Monthly Remainder: ${monthlyRemainder:n2}";
         }
     }
 }
