@@ -413,7 +413,7 @@ namespace BudgetManager
         {
             monthlyRemainder = monthlyBudget - rentCost - groceryCost - utilityCost - carCost - hbaCost - nessCost - extraCost - insCost;
 
-            lbMonthlyRemainder.Text = $"Monthly Budget: {currentCurrencySign}{monthlyBudget:n2}";
+            lbMonthlyRemainder.Text = $"Monthly Budget: {currentCurrencySign}{monthlyRemainder:n2}";
         }
     }
 }
