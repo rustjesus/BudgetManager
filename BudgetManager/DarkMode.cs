@@ -74,11 +74,17 @@ namespace BudgetManager
                 {
                     c.ForeColor = Color.White;
                 }
+                else if (c is MenuStrip ms)
+                {
+                    ms.ForeColor = Color.White;
+                    ms.BackColor = Color.Black;
+                    UpdateMenuItemsColors(ms.Items, Color.White, Color.Black);
+                }
             }
         }
+
         public void EnableRegularMode()
         {
-
             var form1 = Application.OpenForms[0];
 
             form1.BackColor = Color.White;
@@ -88,6 +94,26 @@ namespace BudgetManager
                 if (c is Label || c is CheckBox)
                 {
                     c.ForeColor = Color.Black;
+                }
+                else if (c is MenuStrip ms)
+                {
+                    ms.ForeColor = Color.Black;
+                    ms.BackColor = Color.White;
+                    UpdateMenuItemsColors(ms.Items, Color.Black, Color.White);
+                }
+            }
+        }
+
+        private void UpdateMenuItemsColors(ToolStripItemCollection items, Color foreColor, Color backColor)
+        {
+            foreach (ToolStripItem item in items)
+            {
+                item.ForeColor = foreColor;
+                item.BackColor = backColor;
+
+                if (item is ToolStripMenuItem menuItem && menuItem.HasDropDownItems)
+                {
+                    UpdateMenuItemsColors(menuItem.DropDownItems, foreColor, backColor);
                 }
             }
         }

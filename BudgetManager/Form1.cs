@@ -20,7 +20,10 @@ namespace BudgetManager
         private float monthlyBudget, monthlyRemainder;
         private float rentCost, groceryCost, utilityCost, carCost, hbaCost, nessCost, extraCost, insCost;
         private float weeklyIncome, taxPercent, hourlyIncome, hoursPerWeek, finalAnnIncome;
-        private DarkMode darkMode;
+        private float overTimeHours;
+        private float overTimeRate = 1;
+        private DarkMode darkMode; 
+        private string currentCurrencySign = "$"; // Default currency
 
         public Form1()
         {
@@ -29,9 +32,10 @@ namespace BudgetManager
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
-            //controls
+            LoadCurrencyModeSetting();
+            //controls (for dark mode)
             //checkboxes
+            Controls.Add(menuStrip1);
             Controls.Add(cbUseWeeklyInput);
             Controls.Add(cbDarkMode);
             //expenses
@@ -45,6 +49,9 @@ namespace BudgetManager
             Controls.Add(lbNecessities);
             Controls.Add(lbInsurance);
             //income
+            Controls.Add(lb_OT_MultiRate);
+            Controls.Add(lb_OT_Thres);
+            Controls.Add(lb_AnnIncomeBeforeTaxes);
             Controls.Add(lbWeeklyIncome);
             Controls.Add(lbTaxRate);
             Controls.Add(label_HoursPerWeek);
@@ -137,6 +144,7 @@ namespace BudgetManager
             UpdateAnnualIncome();
         }
 
+
         private void cbDarkMode_CheckedChanged(object sender, EventArgs e)
         {
             darkMode.usingDarkMode = !darkMode.usingDarkMode;
@@ -153,6 +161,133 @@ namespace BudgetManager
             }
         }
 
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            currentCurrencySign = "$";
+            UpdateAnnualIncome();
+            SaveCurrencyModeSetting();
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+
+            currentCurrencySign = "€";
+            UpdateAnnualIncome();
+            SaveCurrencyModeSetting();
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+
+            currentCurrencySign = "£";
+            UpdateAnnualIncome();
+            SaveCurrencyModeSetting();
+        }
+
+        private void jPYJapaneseYenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            currentCurrencySign = "¥";
+            UpdateAnnualIncome();
+            SaveCurrencyModeSetting();
+        }
+
+        private void cNYChineseYuanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            currentCurrencySign = "₹";
+            UpdateAnnualIncome();
+            SaveCurrencyModeSetting();
+        }
+
+        private void swissFrancCHFToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            currentCurrencySign = "CHF";
+            UpdateAnnualIncome();
+            SaveCurrencyModeSetting();
+        }
+
+        private void russianRubleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            currentCurrencySign = "₽";
+            UpdateAnnualIncome();
+            SaveCurrencyModeSetting();
+        }
+
+        private void brazilianRealRToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            currentCurrencySign = "kr";
+            UpdateAnnualIncome();
+            SaveCurrencyModeSetting();
+        }
+
+        private void southAfricanRandRToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            currentCurrencySign = "₺";
+            UpdateAnnualIncome();
+            SaveCurrencyModeSetting();
+
+        }
+
+        private void singaporeDollarSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            currentCurrencySign = "₩";
+            UpdateAnnualIncome();
+            SaveCurrencyModeSetting();
+        }
+
+        private void dirhamدإToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            currentCurrencySign = " د.إ ";
+            UpdateAnnualIncome();
+            SaveCurrencyModeSetting();
+        }
+        public void SaveCurrencyModeSetting()
+        {
+            // Create an object to hold our setting
+            var settings = new { CurrencySign = currentCurrencySign };
+
+            // Convert the settings object to a JSON string
+            string json = JsonConvert.SerializeObject(settings);
+
+            // Define the path to the settings file in the application folder
+            string appFolder = Application.StartupPath;
+            string settingsFilePath = Path.Combine(appFolder, "currencySetting.json");
+
+            // Write the JSON string to the file
+            File.WriteAllText(settingsFilePath, json);
+        }
+
+        public string LoadCurrencyModeSetting()
+        {
+            // Define the path to the settings file in the application folder
+            string appFolder = Application.StartupPath;
+            string settingsFilePath = Path.Combine(appFolder, "currencySetting.json");
+
+            // Check if the settings file exists
+            if (File.Exists(settingsFilePath))
+            {
+                // Read the JSON string from the file
+                string json = File.ReadAllText(settingsFilePath);
+
+                // Deserialize the JSON string to an anonymous type matching the expected structure
+                var settings = JsonConvert.DeserializeObject<dynamic>(json);
+
+                // Return the CurrencySign value as a string
+                return settings.CurrencySign;
+            }
+            else
+            {
+                // Save default settings if file does not exist
+                SaveCurrencyModeSetting();
+                return currentCurrencySign; // Assuming this is available in class scope
+            }
+        }
         private void cbUseWeeklyInput_CheckedChanged(object sender, EventArgs e)
         {
             usingHourlyInput = !usingHourlyInput;
@@ -180,6 +315,10 @@ namespace BudgetManager
             tbHoursPerWeek.Visible = false;
             label_HoursPerWeek.Visible = false;
             label_PerHourInput.Visible = false;
+            lb_OT_MultiRate.Visible = false;
+            lb_OT_Thres.Visible = false;
+            tb_OT_MultiRate.Visible = false;
+            tb_OT_Thres.Visible=false;
         }
         public void UseHourlyInput()
         {
@@ -191,6 +330,10 @@ namespace BudgetManager
             tbHoursPerWeek.Visible = true;
             label_HoursPerWeek.Visible = true;
             label_PerHourInput.Visible = true;
+            lb_OT_MultiRate.Visible = true;
+            lb_OT_Thres.Visible = true;
+            tb_OT_MultiRate.Visible = true;
+            tb_OT_Thres.Visible = true;
         }
 
         private void tbWeeklyIncome_TextChanged(object sender, EventArgs e)
@@ -211,26 +354,48 @@ namespace BudgetManager
             float.TryParse(tbHourlyIncome.Text, out hourlyIncome);
             UpdateWeeklyIncomeHours();
         }
-
+        /*
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             UpdateMonthlyRemainder();
             UpdateAnnualIncome();
+        }*/
+        private void tb_OT_Thres_TextChanged(object sender, EventArgs e)
+        {
+
+            float.TryParse(tb_OT_Thres.Text, out overTimeHours);
+            UpdateWeeklyIncomeHours();
+        }
+
+        private void tb_OT_MultiRate_TextChanged(object sender, EventArgs e)
+        {
+            float.TryParse(tb_OT_MultiRate.Text, out overTimeRate);
+            UpdateWeeklyIncomeHours();
         }
 
 
         public void UpdateWeeklyIncomeHours()
         {
-            weeklyIncome = hourlyIncome * hoursPerWeek;
+
+            //over time
+            float otRate = hourlyIncome * overTimeRate;
+            float otIncome =  otRate * overTimeHours;
+            //regular income
+            float regIncome = hoursPerWeek * hourlyIncome;
+            weeklyIncome = otIncome + regIncome;
             UpdateAnnualIncome();
         }
         private void UpdateAnnualIncome()
         {
+
+
             float yearly = weeklyIncome * 52;
             float newTaxPercent = taxPercent / 100;
             float yearlyTaxes = yearly * newTaxPercent;
             finalAnnIncome = yearly - yearlyTaxes;
-            lbAnnualIncome.Text = $"{finalAnnIncome:n2}$ / Year After Taxes";
+
+            lb_AnnIncomeBeforeTaxes.Text = $"{currentCurrencySign}{yearly:n2} / Year Before Taxes";
+            lbAnnualIncome.Text = $"{currentCurrencySign}{finalAnnIncome:n2} / Year After Taxes";
 
             UpdateMonthlyBudget();
 
@@ -238,8 +403,8 @@ namespace BudgetManager
 
         private void UpdateMonthlyBudget()
         {
-            monthlyBudget = finalAnnIncome / 12;
-            lbMonthlyBudget.Text = $"Monthly Budget: ${monthlyBudget:n2}";
+            monthlyBudget = finalAnnIncome / 12; 
+            lbMonthlyBudget.Text = $"Monthly Budget: {currentCurrencySign}{monthlyBudget:n2}";
 
             UpdateMonthlyRemainder();
         }
@@ -247,7 +412,8 @@ namespace BudgetManager
         private void UpdateMonthlyRemainder()
         {
             monthlyRemainder = monthlyBudget - rentCost - groceryCost - utilityCost - carCost - hbaCost - nessCost - extraCost - insCost;
-            lbMonthlyRemainder.Text = $"Monthly Remainder: ${monthlyRemainder:n2}";
+
+            lbMonthlyRemainder.Text = $"Monthly Budget: {currentCurrencySign}{monthlyBudget:n2}";
         }
     }
 }
