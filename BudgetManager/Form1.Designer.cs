@@ -350,7 +350,7 @@
             this.lbVer.Name = "lbVer";
             this.lbVer.Size = new System.Drawing.Size(41, 13);
             this.lbVer.TabIndex = 30;
-            this.lbVer.Text = "Ver 0.6";
+            this.lbVer.Text = "Ver 0.7";
             // 
             // cbDarkMode
             // 
